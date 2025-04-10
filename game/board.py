@@ -59,3 +59,19 @@ class Board:
                 if not cell.is_mine and not cell.is_revealed:
                     return False
         return True
+    
+
+
+#jeu de trésor
+class treasureBoard(Board):
+    def __init__(self, width, height, num_mines, num_treasures):
+        super().__init__(width, height, num_mines)
+        self.num_treasures = num_treasures
+        self._place_treasures()
+
+    def _place_treasures(self):
+        all_coords = [(x, y) for x in range(self.width) for y in range(self.height)]
+        treasures = random.sample(all_coords, self.num_treasures)
+        for x, y in treasures:
+            self.grid[x][y].is_treasure = True    
+
