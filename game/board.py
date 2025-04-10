@@ -51,3 +51,11 @@ class Board:
                 else:
                     row += str(cell) + ' '
             print(row)
+
+    def has_won(self):
+        for x in range(self.width):
+            for y in range(self.height):
+                cell = self.grid[x][y]
+                if not cell.is_mine and not cell.is_revealed:
+                    return False
+        return True

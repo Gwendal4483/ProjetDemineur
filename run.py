@@ -1,7 +1,8 @@
 from game.board import Board
+import sys
 
 def main():
-    width, height, mines = 10, 10, 10
+    width, height, mines = 10, 10, 1
     board = Board(width, height, mines)
 
     print("Bienvenue dans le démineur (mode console) !")
@@ -37,10 +38,19 @@ def main():
                 board.print_board(reveal_mines=True)
                 print("\n💥 Boom ! Tu as perdu.")
                 break
+            elif board.has_won():
+                board.print_board()
+                print("\n🎉 Félicitations, tu as gagné !")
+                break
+
         elif action == 'f':
             board.toggle_flag(x, y)
         else:
             print("Action inconnue. Utilise 'r' ou 'f'.")
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == "gui":
+        from interface.gui import launch_gui
+        launch_gui()
+    else:
+        from game.board import Board
